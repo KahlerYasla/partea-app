@@ -7,35 +7,39 @@ public class User {
     private String orgId;
 
     // Getter and setters
-    String getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
-    void setSsn(String ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
-    String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    String getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
-    void saveToDB() {
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    public void saveToDB() {
         // Save user to database using DBUtil class
 
     }
