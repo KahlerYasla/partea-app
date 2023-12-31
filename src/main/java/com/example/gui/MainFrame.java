@@ -1,6 +1,7 @@
 package com.example.gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,30 +16,15 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        partySelectionButton = new JButton("Select Party Type");
-        offerButton = new JButton("View Offers");
-        shoppingCartButton = new JButton("Shopping Cart");
+        panel.setLayout(new GridLayout(3, 1, 10, 10)); // Grid layout eklenerek düzen iyileştirildi
 
-        partySelectionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new PartySelectionFrame();
-            }
-        });
+        Icon partyIcon = UIManager.getIcon("Tree.closedIcon");
+        Icon offerIcon = UIManager.getIcon("FileView.computerIcon");
+        Icon cartIcon = UIManager.getIcon("FileView.computerIcon");
 
-        offerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new OfferFrame();
-            }
-        });
-
-        shoppingCartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ShoppingCartFrame();
-            }
-        });
+        partySelectionButton = createButton("Select Party Type", partyIcon);
+        offerButton = createButton("View Offers", offerIcon);
+        shoppingCartButton = createButton("Shopping Cart", cartIcon);
 
         panel.add(partySelectionButton);
         panel.add(offerButton);
@@ -49,7 +35,24 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
+    private JButton createButton(String text, Icon icon) {
+        JButton button = new JButton(text, icon);
+        button.setFont(new Font("Arial", Font.PLAIN, 14)); // Font ayarları eklendi
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Butonlara tıklandığında yapılacak işlemler
+                if (text.equals("Select Party Type")) {
+                    new PartySelectionFrame();
+                } else if (text.equals("View Offers")) {
+                    new OfferFrame();
+                } else if (text.equals("Shopping Cart")) {
+                    new ShoppingCartFrame();
+                }
+            }
+        });
+
+        return button;
     }
 }

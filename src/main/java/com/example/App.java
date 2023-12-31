@@ -27,11 +27,11 @@ public class App {
         }
 
         // ---------------------------------------------------------------------
-        // javax.swing.SwingUtilities.invokeLater(new Runnable() {
-        // public void run() {
-        // createAndShowGUI();
-        // }
-        // });
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
 
         // Things to do after the application is closed
         // --------------------------------------------------------------------
