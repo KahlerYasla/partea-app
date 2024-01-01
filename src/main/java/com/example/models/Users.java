@@ -3,8 +3,8 @@ package com.example.models;
 public class Users extends Model {
     private String ssn;
     private String userName;
-    private String password;
     private String orgId;
+    private String password;
 
     // Getter and setters
     // ===============================================================================
@@ -26,21 +26,21 @@ public class Users extends Model {
     }
 
     // --------------------------------------------------------------------------------
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // --------------------------------------------------------------------------------
     public String getOrgId() {
         return orgId;
     }
 
     public void setOrgId(String orgId) {
         this.orgId = orgId;
+    }
+
+    // --------------------------------------------------------------------------------
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     // ===============================================================================
@@ -52,6 +52,6 @@ public class Users extends Model {
     // --------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return "\'" + ssn + "\', \'" + userName + "\', \'" + password + "\', \'" + orgId + "\'";
+        return "\'" + ssn + "\', \'" + userName + "\', \'" + orgId + "\', \'" + password + "\'";
     }
 }
