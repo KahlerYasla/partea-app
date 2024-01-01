@@ -8,12 +8,11 @@ import java.util.List;
 import com.example.models.*;
 
 public class ResultSetToListUtil<T> {
-    public static <T> List<T> convert(ResultSet rs, String ModelName) throws SQLException {
-        System.out.println("ModelName: " + ModelName);
+    public static <Model> List<Model> convert(ResultSet rs, String ModelName) throws SQLException {
 
         switch (ModelName) {
             case "users":
-                return (List<T>) convertUser(rs);
+                return (List<Model>) convertUser(rs);
             // case "Material":
             // return (List<T>) convertMaterial(rs);
             // case "Organization":
@@ -27,21 +26,17 @@ public class ResultSetToListUtil<T> {
         }
     }
 
-    private static List<User> convertUser(ResultSet rs) throws SQLException {
-        List<User> users = new ArrayList<User>();
-
-        System.out.println("users:");
+    private static List<Users> convertUser(ResultSet rs) throws SQLException {
+        List<Users> users = new ArrayList<Users>();
 
         // iterate through the result set
         while (rs.next()) {
-            User user = new User();
+            Users user = new Users();
             user.setSsn(rs.getString(1));
-            user.setFirstName(rs.getString(2));
-            user.setLastName(rs.getString(3));
-            user.setOrgId(rs.getString(4));
+            user.setUserName(rs.getString(2));
+            user.setOrgId(rs.getString(3));
+            user.setPassword(rs.getString(4));
             users.add(user);
-
-            System.out.println("User: " + user.getFirstName());
         }
 
         return users;

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.example.models.Model;
+
 /**
  * Utility class for interacting with the database.
  */
@@ -20,13 +22,13 @@ public class DBUtil {
     static {
         try {
             Class.forName("org.postgresql.Driver");
-            System.out.println("PostgreSQL JDBC Driver Registered!");
+            ColoredOutput.print("PostgreSQL JDBC Driver Registered!", ColoredOutput.Color.GREEN_BOLD_BRIGHT);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------------------------
+    // ========================================================================================================================
     /**
      * Returns a connection to the database.
      *
@@ -36,7 +38,7 @@ public class DBUtil {
     public static void startConnection() {
         try {
             connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-            System.out.println("Connected to the PostgreSQL server successfully.");
+            ColoredOutput.print("Database connection is working.", ColoredOutput.Color.GREEN_BOLD_BRIGHT);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -50,7 +52,15 @@ public class DBUtil {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------------------------
+    // Repositories for generic CRUD operations on the database
+    // ========================================================================================================================
+    /**
+     * Retrieves all records from the specified table in the database.
+     *
+     * @param modelName the name of the table to retrieve records from
+     * @param <T>       the type of the objects in the resulting list
+     * @return a list of objects representing the records from the table
+     */
     public static <T> List<T> selectAllFromDB(String modelName) {
         String query = "SELECT * FROM " + modelName + ";";
 
@@ -71,9 +81,26 @@ public class DBUtil {
             e.printStackTrace();
         }
 
+        ColoredOutput.print("Retrieved " + list.size() + " records from " + modelName + ".",
+                ColoredOutput.Color.MAGENTA_BOLD_BRIGHT);
+
         return list;
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
+    // insert
+    public static void insertToDB(Model object) {
 
+        ColoredOutput.print("Inserting " + object.toString() + " to the table " + object.getTableName() + ".",
+                ColoredOutput.Color.MAGENTA_BOLD_BRIGHT);
+
+        String query = "INSERT INTO " + object.getTableName() + " VALUES (" + object.toString() + ");";
+
+        // execute the query
+        try {
+            connection.createStatement().executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

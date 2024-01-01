@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.example.services.Authentication;
+
 public class RegisterFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -30,8 +32,12 @@ public class RegisterFrame extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Register işlemleri
-                JOptionPane.showMessageDialog(RegisterFrame.this, "Registration successful!");
+                // Register the user
+                Authentication.register(usernameField.getText(), String.valueOf(passwordField.getPassword()));
+
+                // Show a message dialog
+                JOptionPane.showMessageDialog(RegisterFrame.this, "User registered successfully!");
+
                 dispose();
             }
         });
