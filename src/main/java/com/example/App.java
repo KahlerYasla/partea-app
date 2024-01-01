@@ -2,8 +2,8 @@ package com.example;
 
 import java.util.List;
 
-import com.example.gui.LoginFrame;
-import com.example.models.Users;
+import com.example.gui.AuthFrame;
+import com.example.models.User;
 import com.example.utils.DBUtil;
 import com.example.utils.ColoredOutput;
 
@@ -33,7 +33,7 @@ public class App {
         DBUtil.startConnection();
 
         // Test the database connection is working with a simple query of the user table
-        List<Users> users = DBUtil.selectAllFromDB("users");
+        List<User> users = DBUtil.selectAllFromDB("users");
         // if the first user's first name is "Alice", then the connection is working
         if (users.get(0).getUserName().equals("Alice")) {
             ColoredOutput.print("Database test is successful.", ColoredOutput.Color.GREEN_BOLD_BRIGHT);
@@ -65,7 +65,7 @@ public class App {
      */
     private static void createAndShowGUI() {
         // Create and set up the first window to be shown
-        LoginFrame mainFrame = new LoginFrame();
-        mainFrame.setVisible(true);
+        AuthFrame authFrame = new AuthFrame();
+        authFrame.setVisible(true);
     }
 }

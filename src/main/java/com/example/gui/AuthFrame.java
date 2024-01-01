@@ -6,15 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.example.services.Authentication;
-import com.example.utils.ColoredOutput;
 
-public class LoginFrame extends JFrame {
+public class AuthFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton registerButton;
 
-    public LoginFrame() {
+    public AuthFrame() {
         setTitle("Partea - Party Organizing System");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,15 +38,26 @@ public class LoginFrame extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // print username and password
-                ColoredOutput.print(usernameField.getText() + " " + String.valueOf(passwordField.getPassword()),
-                        ColoredOutput.Color.YELLOW_BOLD_BRIGHT);
+                if (usernameField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).isEmpty()) {
+                    JOptionPane.showMessageDialog(AuthFrame.this, "Username and password cannot be empty!");
+                    return;
+                } else if (usernameField.getText().length() < 3
+                        || String.valueOf(passwordField.getPassword()).length() < 3) {
+                    JOptionPane.showMessageDialog(AuthFrame.this,
+                            "Username and password must be at least 3 characters long!");
+                    return;
+                } else if (usernameField.getText().length() > 8
+                        || String.valueOf(passwordField.getPassword()).length() > 8) {
+                    JOptionPane.showMessageDialog(AuthFrame.this,
+                            "Username and password must be at most 15 characters long!");
+                    return;
+                }
 
                 if (Authentication.authenticate(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
-                    new MainFrame(usernameField.getText());
+                    new HomeFrame(usernameField.getText());
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(LoginFrame.this, "Invalid username or password!");
+                    JOptionPane.showMessageDialog(AuthFrame.this, "Invalid username or password!");
                 }
             }
         });
@@ -55,8 +65,27 @@ public class LoginFrame extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Open the register frame
-                new RegisterFrame();
+                if (usernameField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).isEmpty()) {
+                    JOptionPane.showMessageDialog(AuthFrame.this, "Username and password cannot be empty!");
+                    return;
+                } else if (usernameField.getText().length() < 3
+                        || String.valueOf(passwordField.getPassword()).length() < 3) {
+                    JOptionPane.showMessageDialog(AuthFrame.this,
+                            "Username and password must be at least 3 characters long!");
+                    return;
+                } else if (usernameField.getText().length() > 8
+                        || String.valueOf(passwordField.getPassword()).length() > 8) {
+                    JOptionPane.showMessageDialog(AuthFrame.this,
+                            "Username and password must be at most 15 characters long!");
+                    return;
+                }
+
+                try {
+                    Authentication.register(usernameField.getText(), String.valueOf(passwordField.getPassword()));
+                    JOptionPane.showMessageDialog(AuthFrame.this, "Registration successful!");
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(AuthFrame.this, exception.getMessage());
+                }
             }
         });
 
@@ -81,13 +110,13 @@ public class LoginFrame extends JFrame {
         button.setBackground(Theme.buttonColor);
         button.setOpaque(true);
         button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding to the button
-        button.setForeground(Color.pink);
+        button.setForeground(Color.white);
         button.setPreferredSize(new Dimension(200, 40));
     }
 
     private JLabel configureLabel(JLabel label) {
         label.setFont(Theme.font);
-        label.setForeground(Color.pink);
+        label.setForeground(Color.white);
         label.setBackground(Theme.bgColor);
         label.setOpaque(true);
         label.setPreferredSize(new Dimension(100, 40));
@@ -102,11 +131,13 @@ public class LoginFrame extends JFrame {
         textField.setBackground(Theme.buttonColor);
         textField.setOpaque(true);
         textField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding to the text field
-        textField.setForeground(Color.pink);
+        textField.setForeground(Color.white);
+        textField.setCaretColor(Color.white);
         textField.setPreferredSize(new Dimension(200, 40));
     }
 
+    // --------------------------------------------------------------------------------------------------------------
     public static void main(String[] args) {
-        new LoginFrame();
+        new AuthFrame();
     }
 }

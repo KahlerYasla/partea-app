@@ -4,15 +4,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ShoppingCartFrame extends JFrame {
+public class ShoppingCartPanel extends JPanel {
     private JTable cartTable;
     private JButton checkoutButton;
 
-    public ShoppingCartFrame() {
-        setTitle("Shopping Cart");
-        setSize(600, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+    public ShoppingCartPanel() {
         JPanel panel = new JPanel();
         cartTable = new JTable();
         checkoutButton = new JButton("Checkout");
@@ -28,7 +24,6 @@ public class ShoppingCartFrame extends JFrame {
         panel.add(checkoutButton);
 
         add(panel);
-        setLocationRelativeTo(null);
         setVisible(true);
     }
 }

@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Theme {
-    public static Color bgColor = new Color(255, 102, 102);
-    public static Color buttonColor = bgColor.darker();
+    private static Color mainColor = new Color(16, 17, 20);
 
-    public static Font font = new Font("Arial", Font.PLAIN, 20);
+    public static Color bgColor = mainColor.brighter().brighter();
+    public static Color buttonColor = mainColor;
+
+    public static Font font = new Font(null, Font.PLAIN, 14);
 
 }

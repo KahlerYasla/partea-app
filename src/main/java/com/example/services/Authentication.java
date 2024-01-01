@@ -3,7 +3,7 @@ package com.example.services;
 import com.example.utils.DBUtil;
 import java.util.List;
 
-import com.example.models.Users;
+import com.example.models.User;
 
 public class Authentication {
     public static boolean authenticate(String username, String password) {
@@ -11,9 +11,9 @@ public class Authentication {
             return true;
         }
 
-        List<Users> users = DBUtil.selectAllFromDB("users");
+        List<User> users = DBUtil.selectAllFromDB("users");
 
-        for (Users user : users) {
+        for (User user : users) {
             if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
                 return true;
             }
@@ -23,7 +23,7 @@ public class Authentication {
     }
 
     public static void register(String username, String password) {
-        Users user = new Users();
+        User user = new User();
         user.setUserName(username);
         user.setPassword(password);
         user.setSsn(java.util.UUID.randomUUID().toString().substring(0, 8));

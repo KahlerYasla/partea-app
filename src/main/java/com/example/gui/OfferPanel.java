@@ -4,14 +4,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OfferFrame extends JFrame {
+public class OfferPanel extends JPanel {
     private JTable offerTable;
     private JButton buyButton;
 
-    public OfferFrame() {
-        setTitle("Party Offers");
-        setSize(600, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    public OfferPanel() {
 
         JPanel panel = new JPanel();
         offerTable = new JTable();
@@ -28,7 +25,6 @@ public class OfferFrame extends JFrame {
         panel.add(buyButton);
 
         add(panel);
-        setLocationRelativeTo(null);
         setVisible(true);
     }
 }

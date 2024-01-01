@@ -1,6 +1,6 @@
 package com.example.models;
 
-public class Users extends Model {
+public class User extends Model {
     private String ssn;
     private String userName;
     private String orgId;

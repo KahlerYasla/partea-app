@@ -1,27 +1,29 @@
 package com.example.utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
+
+import com.example.models.Organization;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PartyUtil {
-    public static ResultSet getCompaniesByPartyType(Connection connection, String partyType) throws SQLException {
-        String sql = "SELECT * FROM company WHERE cid IN (SELECT comp_id FROM organizations WHERE otype = ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, partyType);
-            return statement.executeQuery();
-        }
-    }
+    /**
+     * Retrieves an array of unique party types from the database.
+     *
+     * @return an array of party type names
+     */
+    public static String[] getPartyTypes() {
 
-    public static ResultSet getOfferedCompanies(Connection connection, String userSSN) throws SQLException {
-        String sql = "SELECT * FROM company WHERE cid IN (SELECT comp_id FROM organizations WHERE oid IN " +
-                "(SELECT oid FROM owned_metarials WHERE user_ssn = ?))";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, userSSN);
-            return statement.executeQuery();
-        }
-    }
+        List<Organization> partyTypes = DBUtil.selectAllFromDB("organizations");
 
-    // Todo: Diğer veritabanı işlemleri burada yoruldum :D
+        Set<String> uniquePartyTypes = new HashSet<>();
+
+        for (Organization partyType : partyTypes) {
+            uniquePartyTypes.add(partyType.getOrgType());
+        }
+
+        String[] partyTypeNames = uniquePartyTypes.toArray(new String[0]);
+
+        return partyTypeNames;
+    }
 }

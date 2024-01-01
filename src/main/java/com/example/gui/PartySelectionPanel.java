@@ -4,18 +4,26 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PartySelectionFrame extends JFrame {
+import com.example.utils.PartyUtil;
+
+public class PartySelectionPanel extends JPanel {
     private JComboBox<String> partyTypeComboBox;
     private JButton selectButton;
+    private String[] partyTypes;
 
-    public PartySelectionFrame() {
-        setTitle("Select Party Type");
-        setSize(300, 150);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    public PartySelectionPanel() {
+        partyTypes = PartyUtil.getPartyTypes();
 
         JPanel panel = new JPanel();
-        partyTypeComboBox = new JComboBox<>(new String[] { "Birthday", "Engagement", "Other" });
+        panel.setBackground(Theme.bgColor);
+
+        partyTypeComboBox = new JComboBox<>(partyTypes);
+        partyTypeComboBox.setBackground(Theme.bgColor);
+        partyTypeComboBox.setForeground(Theme.buttonColor);
+
         selectButton = new JButton("Select");
+        selectButton.setBackground(Theme.buttonColor);
+        selectButton.setForeground(Theme.bgColor);
 
         selectButton.addActionListener(new ActionListener() {
             @Override
@@ -30,7 +38,6 @@ public class PartySelectionFrame extends JFrame {
         panel.add(selectButton);
 
         add(panel);
-        setLocationRelativeTo(null);
         setVisible(true);
     }
 }

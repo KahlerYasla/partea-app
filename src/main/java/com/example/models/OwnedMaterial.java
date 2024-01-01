@@ -6,9 +6,29 @@ public class OwnedMaterial extends Model {
 
     @Override
     public String getTableName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTableName'");
+        return "owned_materials";
     }
 
-    // Getter and setters
+    @Override
+    public String toString() {
+        return "\'" + materialId + "," + userSsn + "\'";
+    }
+
+    // #region Getters and Setters --------------------------------------------
+    public String getUserSsn() {
+        return userSsn;
+    }
+
+    public void setUserSsn(String userSsn) {
+        this.userSsn = userSsn;
+    }
+
+    public String getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
+    }
+    // #endregion Getters and Setters -----------------------------------------
 }
