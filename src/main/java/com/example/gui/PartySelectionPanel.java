@@ -3,12 +3,13 @@ package com.example.gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 
 import com.example.utils.PartyUtil;
 
 public class PartySelectionPanel extends JPanel {
     private JComboBox<String> partyTypeComboBox;
-    private JButton selectButton;
+    String selectedPartyType;
     private String[] partyTypes;
 
     public PartySelectionPanel() {
@@ -19,25 +20,27 @@ public class PartySelectionPanel extends JPanel {
 
         partyTypeComboBox = new JComboBox<>(partyTypes);
         partyTypeComboBox.setBackground(Theme.bgColor);
-        partyTypeComboBox.setForeground(Theme.buttonColor);
+        partyTypeComboBox.setFont(Theme.font);
+        // set the dropdown list to be editable
+        partyTypeComboBox.setEditable(true);
 
-        selectButton = new JButton("Select");
-        selectButton.setBackground(Theme.buttonColor);
-        selectButton.setForeground(Theme.bgColor);
-
-        selectButton.addActionListener(new ActionListener() {
+        partyTypeComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedPartyType = (String) partyTypeComboBox.getSelectedItem();
-                // Seçilen parti tipine göre işlemler
+                // get the selected item
+                selectedPartyType = (String) partyTypeComboBox.getSelectedItem();
             }
         });
 
-        panel.add(new JLabel("Select Party Type:"));
+        // add label with white text
+        JLabel label = new JLabel("Party Type:");
+        label.setForeground(Color.WHITE);
+
+        panel.add(label);
         panel.add(partyTypeComboBox);
-        panel.add(selectButton);
 
         add(panel);
         setVisible(true);
+
     }
 }

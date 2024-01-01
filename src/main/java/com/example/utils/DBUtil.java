@@ -81,14 +81,13 @@ public class DBUtil {
             e.printStackTrace();
         }
 
-        ColoredOutput.print("Retrieved " + list.size() + " records from " + modelName + ".",
-                ColoredOutput.Color.MAGENTA_BOLD_BRIGHT);
+        ColoredOutput.print("Retrieved " + list.size() + " records from " + modelName
+                + ".", ColoredOutput.Color.MAGENTA_BOLD_BRIGHT);
 
         return list;
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
-    // insert
     public static void insertToDB(Model object) {
 
         ColoredOutput.print("Inserting " + object.toString() + " to the table " + object.getTableName() + ".",

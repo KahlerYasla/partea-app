@@ -6,20 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.models.*;
+import com.example.utils.ColoredOutput;
 
-public class ResultSetToListUtil<T> {
+public class ResultSetToListUtil {
     public static <Model> List<Model> convert(ResultSet rs, String ModelName) throws SQLException {
 
         switch (ModelName) {
             case "users":
                 return (List<Model>) convertUser(rs);
-            case "Material":
+            case "materials":
                 return (List<Model>) convertMaterial(rs);
-            case "Organization":
+            case "organizations":
                 return (List<Model>) convertOrganization(rs);
-            case "Company":
+            case "companies":
                 return (List<Model>) convertCompany(rs);
-            case "OwnedMaterial":
+            case "owned_materials":
                 return (List<Model>) convertOwnedMaterial(rs);
             default:
                 return null;
@@ -68,14 +69,15 @@ public class ResultSetToListUtil<T> {
         // iterate through the result set
         while (rs.next()) {
             Organization organization = new Organization();
-            organization.setAvailability(rs.getString(1));
+            organization.setOrgId(rs.getString(1));
+
             organization.setCompanyId(rs.getString(2));
-            organization.setGuestLimit(rs.getInt(3));
-            organization.setOrgDate(rs.getDate(4));
-            organization.setOrgId(rs.getString(5));
-            organization.setOrgType(rs.getString(6));
-            organization.setPrice(rs.getFloat(7));
-            organization.setSeason(rs.getString(8));
+            organization.setOrgType(rs.getString(3));
+            organization.setGuestLimit(rs.getInt(4));
+            organization.setSeason(rs.getString(5));
+            organization.setAvailability(rs.getString(6));
+            organization.setOrgDate(rs.getDate(7));
+            organization.setPrice(rs.getFloat(8));
             organizations.add(organization);
         }
 
