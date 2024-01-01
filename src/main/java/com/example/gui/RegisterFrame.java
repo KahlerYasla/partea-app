@@ -13,21 +13,22 @@ public class RegisterFrame extends JFrame {
     private JButton registerButton;
 
     public RegisterFrame() {
-        setTitle("Register");
-        setSize(300, 150);
+        setTitle("Partea - Party Organizing System");
+        setSize(300, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        panel.setBackground(Theme.bgColor);
+        // Add padding to the panel
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
         registerButton = new JButton("Register");
 
-        // ImageIcon kullanarak bir ikon ekleyebilirsiniz (icon.png dosyasının varlığını
-        // kontrol etmelisiniz).
-        Icon registerIcon = UIManager.getIcon("FileView.floppyDriveIcon");
-        registerButton.setIcon(registerIcon);
+        configureTextField(usernameField);
+        configureTextField(passwordField);
+        configureButton(registerButton);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -42,15 +43,49 @@ public class RegisterFrame extends JFrame {
             }
         });
 
-        panel.add(new JLabel("Username:"));
+        panel.add(configureLabel(new JLabel("Username:")));
         panel.add(usernameField);
-        panel.add(new JLabel("Password:"));
+        panel.add(configureLabel(new JLabel("Password:")));
         panel.add(passwordField);
-        panel.add(new JLabel());
+        panel.add(new JLabel()); // Empty label for spacing
         panel.add(registerButton);
 
         add(panel);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void configureButton(JButton button) {
+        button.setFont(Theme.font);
+        button.setBackground(Theme.buttonColor);
+        button.setOpaque(true);
+        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding to the button
+        button.setForeground(Color.pink);
+        button.setPreferredSize(new Dimension(200, 40));
+    }
+
+    private JLabel configureLabel(JLabel label) {
+        label.setFont(Theme.font);
+        label.setForeground(Color.pink);
+        label.setBackground(Theme.bgColor);
+        label.setOpaque(true);
+        label.setPreferredSize(new Dimension(100, 40));
+        // Add padding to the label
+        label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        return label;
+    }
+
+    private void configureTextField(JTextField textField) {
+        textField.setFont(Theme.font);
+        textField.setBackground(Theme.buttonColor);
+        textField.setOpaque(true);
+        textField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding to the text field
+        textField.setForeground(Color.pink);
+        textField.setPreferredSize(new Dimension(200, 40));
+    }
+
+    public static void main(String[] args) {
+        new RegisterFrame();
     }
 }
