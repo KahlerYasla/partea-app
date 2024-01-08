@@ -65,6 +65,23 @@ public class TopBarPanel extends JPanel {
             }
         });
 
+        // get size of the top panel
+        Dimension size = getPreferredSize();
+
+        // make the window draggable
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Calculate the new position and move the frame accordingly
+                if (getTopLevelAncestor() instanceof JFrame) {
+                    JFrame frame = (JFrame) getTopLevelAncestor();
+                    int deltaX = e.getXOnScreen() - size.width;
+                    int deltaY = e.getYOnScreen() - size.height / 2;
+                    frame.setLocation(deltaX, deltaY);
+                }
+            }
+        });
+
         setVisible(true);
     }
 

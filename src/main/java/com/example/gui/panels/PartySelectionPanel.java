@@ -1,4 +1,4 @@
-package com.example.gui;
+package com.example.gui.panels;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -6,6 +6,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.example.gui.Theme;
 import com.example.utils.PartyUtil;
 
 public class PartySelectionPanel extends JPanel {

@@ -9,12 +9,14 @@ import com.example.gui.components.TopBarPanel;
 public abstract class MainFrame extends JFrame {
     JPanel mainPanel;
     JPanel topBarPanel;
-    JPanel contentPanel;
+    protected JPanel contentPanel;
     JLabel titleLabel;
     String username;
 
     public MainFrame(String username) {
         this.username = username;
+
+        setIconImage(new ImageIcon("src/resources/images/icons/logo.png").getImage());
 
         setSize(576 * 2, 576);
         setResizable(false);
@@ -33,7 +35,7 @@ public abstract class MainFrame extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         add(mainPanel, BorderLayout.CENTER);
-        add(new TopBarPanel("Partea - Party Organizing System #" + username), BorderLayout.NORTH);
+        add(new TopBarPanel("Partea - Party Organizing System # " + username), BorderLayout.NORTH);
 
         setLocationRelativeTo(null);
         setVisible(true);

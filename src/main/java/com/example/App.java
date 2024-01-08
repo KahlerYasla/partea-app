@@ -2,7 +2,7 @@ package com.example;
 
 import java.util.List;
 
-import com.example.gui.AuthFrame;
+import com.example.gui.frames.AuthFrame;
 import com.example.models.User;
 import com.example.utils.DBUtil;
 import com.example.utils.ColoredOutput;

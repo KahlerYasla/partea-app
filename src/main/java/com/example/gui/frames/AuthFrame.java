@@ -1,4 +1,4 @@
-package com.example.gui;
+package com.example.gui.frames;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 
 import com.example.services.Authentication;
+import com.example.gui.Theme;
 import com.example.gui.components.TopBarPanel;
+import com.example.utils.ColoredOutput;
 
 public class AuthFrame extends JFrame {
     private JTextField usernameField;
@@ -16,6 +18,14 @@ public class AuthFrame extends JFrame {
     private JButton registerButton;
 
     public AuthFrame() {
+
+        ImageIcon myAppImage = new ImageIcon("src/resources/images/logo.png", "logo");
+        if (myAppImage.getImage().getWidth(null) > 0) {
+            setIconImage(myAppImage.getImage());
+        } else {
+            ColoredOutput.print("Could not find logo.png in src/resources/images/", ColoredOutput.Color.RED);
+        }
+
         setUndecorated(true);
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +40,8 @@ public class AuthFrame extends JFrame {
 
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
+
+        passwordField.setEchoChar('*');
 
         configureTextField(usernameField);
         configureTextField(passwordField);
@@ -52,8 +64,8 @@ public class AuthFrame extends JFrame {
                     return;
 
                 if (Authentication.authenticate(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
-                    new HomeFrame(usernameField.getText());
                     dispose();
+                    new HomeFrame(usernameField.getText());
                 } else {
                     JOptionPane.showMessageDialog(AuthFrame.this, "Invalid username or password!");
                 }
