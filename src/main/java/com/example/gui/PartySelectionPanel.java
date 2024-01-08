@@ -1,15 +1,17 @@
 package com.example.gui;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
-
 import com.example.utils.PartyUtil;
 
 public class PartySelectionPanel extends JPanel {
     private JComboBox<String> partyTypeComboBox;
-    String selectedPartyType;
+    private JSlider priceRangeSlider;
+    private String selectedPartyType;
     private String[] partyTypes;
 
     public PartySelectionPanel() {
@@ -21,26 +23,36 @@ public class PartySelectionPanel extends JPanel {
         partyTypeComboBox = new JComboBox<>(partyTypes);
         partyTypeComboBox.setBackground(Theme.bgColor);
         partyTypeComboBox.setFont(Theme.font);
-        // set the dropdown list to be editable
         partyTypeComboBox.setEditable(true);
 
         partyTypeComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // get the selected item
                 selectedPartyType = (String) partyTypeComboBox.getSelectedItem();
             }
         });
 
-        // add label with white text
         JLabel label = new JLabel("Party Type:");
         label.setForeground(Color.WHITE);
 
         panel.add(label);
         panel.add(partyTypeComboBox);
 
+        // Price Range Slider
+        priceRangeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+        priceRangeSlider.setBackground(Theme.bgColor);
+        priceRangeSlider.setPaintTicks(true);
+        priceRangeSlider.setPaintLabels(true);
+        priceRangeSlider.setFont(Theme.font);
+        priceRangeSlider.setForeground(Color.WHITE);
+        priceRangeSlider.setMajorTickSpacing(25);
+        priceRangeSlider.setMinorTickSpacing(5);
+        priceRangeSlider.setPaintLabels(true);
+
+        panel.add(priceRangeSlider);
+
         add(panel);
         setVisible(true);
-
+        setBackground(Theme.bgColor);
     }
 }

@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 
 import com.example.services.Authentication;
+import com.example.gui.components.TopBarPanel;
 
 public class AuthFrame extends JFrame {
     private JTextField usernameField;
@@ -14,9 +16,12 @@ public class AuthFrame extends JFrame {
     private JButton registerButton;
 
     public AuthFrame() {
-        setTitle("Partea - Party Organizing System");
+        setUndecorated(true);
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // make the window rounded 30 pixels
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
 
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBackground(Theme.bgColor);
@@ -29,8 +34,13 @@ public class AuthFrame extends JFrame {
         configureTextField(usernameField);
         configureTextField(passwordField);
 
-        loginButton = new JButton("Login");
-        registerButton = new JButton("Register");
+        ImageIcon loginIcon = new ImageIcon("src/resources/images/icons/login.png", "Login");
+        Image loginImage = loginIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        loginButton = new JButton("Login", new ImageIcon(loginImage));
+
+        ImageIcon registerIcon = new ImageIcon("src/resources/images/icons/register.png", "Register");
+        Image registerImage = registerIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        registerButton = new JButton("Register", new ImageIcon(registerImage));
 
         configureButton(loginButton);
         configureButton(registerButton);
@@ -38,20 +48,8 @@ public class AuthFrame extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (usernameField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).isEmpty()) {
-                    JOptionPane.showMessageDialog(AuthFrame.this, "Username and password cannot be empty!");
+                if (!isFieldsProperlySet())
                     return;
-                } else if (usernameField.getText().length() < 3
-                        || String.valueOf(passwordField.getPassword()).length() < 3) {
-                    JOptionPane.showMessageDialog(AuthFrame.this,
-                            "Username and password must be at least 3 characters long!");
-                    return;
-                } else if (usernameField.getText().length() > 8
-                        || String.valueOf(passwordField.getPassword()).length() > 8) {
-                    JOptionPane.showMessageDialog(AuthFrame.this,
-                            "Username and password must be at most 15 characters long!");
-                    return;
-                }
 
                 if (Authentication.authenticate(usernameField.getText(), String.valueOf(passwordField.getPassword()))) {
                     new HomeFrame(usernameField.getText());
@@ -65,20 +63,8 @@ public class AuthFrame extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (usernameField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).isEmpty()) {
-                    JOptionPane.showMessageDialog(AuthFrame.this, "Username and password cannot be empty!");
+                if (!isFieldsProperlySet())
                     return;
-                } else if (usernameField.getText().length() < 3
-                        || String.valueOf(passwordField.getPassword()).length() < 3) {
-                    JOptionPane.showMessageDialog(AuthFrame.this,
-                            "Username and password must be at least 3 characters long!");
-                    return;
-                } else if (usernameField.getText().length() > 8
-                        || String.valueOf(passwordField.getPassword()).length() > 8) {
-                    JOptionPane.showMessageDialog(AuthFrame.this,
-                            "Username and password must be at most 15 characters long!");
-                    return;
-                }
 
                 try {
                     Authentication.register(usernameField.getText(), String.valueOf(passwordField.getPassword()));
@@ -100,11 +86,14 @@ public class AuthFrame extends JFrame {
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-        add(panel);
+        add(panel, BorderLayout.CENTER);
+        add(new TopBarPanel("Partea"), BorderLayout.NORTH);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
+    // --------------------------------------------------------------------------------------------------------------
     private void configureButton(JButton button) {
         button.setFont(Theme.font);
         button.setBackground(Theme.buttonColor);
@@ -134,6 +123,23 @@ public class AuthFrame extends JFrame {
         textField.setForeground(Color.white);
         textField.setCaretColor(Color.white);
         textField.setPreferredSize(new Dimension(200, 40));
+    }
+
+    private boolean isFieldsProperlySet() {
+        if (usernameField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(AuthFrame.this, "Username and password cannot be empty!");
+            return false;
+        } else if (usernameField.getText().length() < 3 || String.valueOf(passwordField.getPassword()).length() < 3) {
+            JOptionPane.showMessageDialog(AuthFrame.this,
+                    "Username and password must be at least 3 characters long!");
+            return false;
+        } else if (usernameField.getText().length() > 8 || String.valueOf(passwordField.getPassword()).length() > 8) {
+            JOptionPane.showMessageDialog(AuthFrame.this,
+                    "Username and password must be at most 8 characters long!");
+            return false;
+        }
+
+        return true;
     }
 
     // --------------------------------------------------------------------------------------------------------------

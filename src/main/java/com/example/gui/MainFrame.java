@@ -2,6 +2,9 @@ package com.example.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+
+import com.example.gui.components.TopBarPanel;
 
 public abstract class MainFrame extends JFrame {
     JPanel mainPanel;
@@ -13,21 +16,25 @@ public abstract class MainFrame extends JFrame {
     public MainFrame(String username) {
         this.username = username;
 
-        setTitle("Partea - Party Organizing System #" + username);
         setSize(576 * 2, 576);
         setResizable(false);
-        setUndecorated(false);
+        setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // make the window rounded 30 pixels
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
 
         mainPanel = new JPanel(new BorderLayout());
 
         contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.black);
+        contentPanel.setBackground(Theme.bgColor);
         contentPanel.setOpaque(true);
 
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
-        add(mainPanel);
+        add(mainPanel, BorderLayout.CENTER);
+        add(new TopBarPanel("Partea - Party Organizing System #" + username), BorderLayout.NORTH);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }

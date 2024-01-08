@@ -49,8 +49,11 @@ public class HomeFrame extends MainFrame {
         contentPanel.add(leftPanel, BorderLayout.WEST);
 
         // Create a label to display the image
-        JLabel imageLabel = new JLabel(new ImageIcon(getClass().getResource("SidePic.png")));
+        JLabel imageLabel = new JLabel(new ImageIcon("src/resources/images/SidePic.png"));
         contentPanel.add(imageLabel, BorderLayout.EAST);
+
+        // Add some margin between the top bar and the content panel
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 
     // --------------------------------------------------------------------------------------------------------------
